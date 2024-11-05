@@ -1,37 +1,62 @@
-# TimeMarker 
-![image](https://github.com/user-attachments/assets/6fbe4b34-4ff0-4bb7-b129-0a26d7a62c2f)
+# TimeMarker
+![Screenshot_20241105_203318](https://github.com/user-attachments/assets/d02c0044-fd54-4f91-94fd-2bad7a026c16)
+
+TimeMarker is an interactive web application that lets users explore historical and speculative future narratives based on specific geographical locations and time periods. Built with Next.js and enhanced with modern UI components, it combines temporal and spatial data to generate unique historical perspectives.
+
+## Features
+
+- **Interactive Time Selection**: Choose any year using an intuitive year picker
+- **Location Selection**: Multiple ways to select locations:
+  - Manual coordinate input
+  - Current location detection
+  - Interactive map picker with OpenStreetMap integration
+- **AI-Powered Historical Narratives**: Generates detailed historical or futuristic accounts based on selected time and location
+- **Responsive Design**: Fully functional across desktop and mobile devices
+- **Dark/Light Theme**: Supports system preference and manual theme switching
+
+## Technology Stack
+
+- **Framework**: Next.js 14
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Maps**: Leaflet with React-Leaflet
+- **Font**: Geist Font Family
+- **AI Integration**: Groq API with Llama3 model
+- **Form Handling**: React Hook Form with Zod validation
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Usage
+
+1. Navigate to the main page
+2. Click "Get Started"
+3. Select a year you want to explore
+4. Choose a location using one of the available methods:
+   - Enter coordinates manually
+   - Use your current location
+   - Pick a location on the map
+5. Click "Start Journey" to generate a historical narrative
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+All rights reserved. Created by [Leytox](https://github.com/Leytox)
+
+## Support Ukraine 🇺🇦
+
+This project stands with Ukraine. Visit [Stand With Ukraine](https://standwithukraine.com.ua) to learn more.
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
