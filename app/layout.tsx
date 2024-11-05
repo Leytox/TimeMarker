@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/toaster";
+import I18nProvider from "@/components/providers/i18n-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,10 +40,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          {children}
-          <Footer />
-          <Toaster />
+          <I18nProvider>
+            <Header />
+            {children}
+            <Footer />
+            <Toaster />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

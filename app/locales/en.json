@@ -1,0 +1,43 @@
+{
+  "common": {
+    "title": "TimeMarker",
+    "getStarted": "Get Started"
+  },
+  "footer": {
+    "rights": "All rights reserved. Created by",
+    "standWith": "#StandWithUkraine 🇺🇦"
+  },
+  "mapPicker": {
+    "loading": "Loading map...",
+    "select": "Select",
+    "close": "Close",
+    "latitude": "latitude",
+    "longitude": "longitude"
+  },
+  "newStoryForm": {
+    "yearLabel": "Year you want to travel to",
+    "yearDescription": "This is the year you are traveling to.",
+    "latitudeLabel": "Latitude",
+    "latitudeDescription": "Latitude of the location (°N).",
+    "latitudePlaceholder": "40.7128",
+    "longitudeLabel": "Longitude",
+    "longitudeDescription": "Longitude of the location (°E).",
+    "longitudePlaceholder": "-74.0060",
+    "or": "OR",
+    "getCurrentLocation": "Get current location",
+    "chooseOnMap": "Choose on map",
+    "startJourney": "Start Journey",
+    "newStory": "New Story",
+    "locationTitle": "Location",
+    "locationSuccess": "Successfully fetched your location.",
+    "locationNotSupported": "Geolocation is not supported by your browser.",
+    "error": {
+      "title": "Error",
+      "fetchFailed": "Failed to fetch data."
+    }
+  },
+  "yearPicker": {
+    "previousYears": "Previous years",
+    "nextYears": "Next years"
+  }
+}

@@ -19,7 +19,6 @@ export function MapPicker({
   initialPosition = [41, 12],
 }: MapPickerProps) {
   const [position, setPosition] = useState<[number, number]>(initialPosition);
-
   const bounds = new LatLngBounds([-90, -180], [90, 180]);
 
   function LocationMarker() {
