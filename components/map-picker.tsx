@@ -1,3 +1,4 @@
+"use client";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import { icon, LatLngBounds } from "leaflet";
 import { useState } from "react";
@@ -52,3 +53,4 @@ export function MapPicker({
     </MapContainer>
   );
 }
+export default MapPicker;

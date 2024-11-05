@@ -11,7 +11,7 @@ export async function getHistoricalData(
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         },
         body: JSON.stringify({
           model: "llama3-8b-8192",
