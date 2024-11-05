@@ -1,10 +1,39 @@
 "use server";
+export async function getLocationInfo(
+  latitude: number,
+  longitude: number,
+): Promise<{
+  city: string;
+  country: string;
+} | null> {
+  try {
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+      {
+        headers: {
+          "User-Agent": "TimeMarker/1.0",
+        },
+      },
+    );
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    return {
+      city: data.address.city || data.address.town || data.address.village,
+      country: data.address.country,
+    };
+  } catch (error) {
+    console.error("Error getting location info:", error);
+    return null;
+  }
+}
+
 export async function getHistoricalData(
   date: Date,
   latitude: number,
   longitude: number,
 ): Promise<string | undefined> {
   try {
+    const locationInfo = await getLocationInfo(latitude, longitude);
     const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
@@ -19,7 +48,16 @@ export async function getHistoricalData(
           messages: [
             {
               role: "user",
-              content: `You are a historian in the year ${date.getFullYear()} at latitude ${Math.floor(latitude)} and longitude ${Math.floor(longitude)}. What can you say about the culture, wars, habits and other related things? If this is a future - just imagine, and if not, you need to relate to real history. Don't mention that you are a historian.`,
+              content: ` Make a fictional story about what was happening. It doesn't need to be real, but use the real events and information to make it as realistic as possible.
+                 I want to know what was happening on exactly these coordinates on this date: ${date.getFullYear()}.
+
+                 Country: ${locationInfo?.country || ""}, City: ${locationInfo?.city || ""}
+
+                 Explain it like I'm standing there.
+
+                 Describe the weather, the people, the buildings, the food, the traffic, the news, the events, the culture, the history, the weather, refer to the real people and historical events. Don't worry about mentioning controversial facts, just make it as realistic as possible.'
+
+                 If this date is in the future, explain what will happen, like a fantasy story.`,
             },
           ],
         }),
