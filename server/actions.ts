@@ -13,6 +13,7 @@ export async function getHistoricalData(
           "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         },
+        credentials: "include",
         body: JSON.stringify({
           model: "llama3-8b-8192",
           messages: [
