@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TimeMarker 
+![image](https://github.com/user-attachments/assets/6fbe4b34-4ff0-4bb7-b129-0a26d7a62c2f)
 
 ## Getting Started
 
