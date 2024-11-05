@@ -27,6 +27,7 @@ import { YearPickerDropdown } from "./year-picker-dropdown";
 import { useToast } from "@/hooks/use-toast";
 import { getHistoricalData } from "@/server/actions";
 import dynamic from "next/dynamic";
+import { useTranslation } from "react-i18next";
 
 const formSchema = z.object({
   date: z.date(),
@@ -49,6 +50,7 @@ const MapPicker = dynamic(
 );
 
 export default function NewStoryForm() {
+  const { t, i18n } = useTranslation();
   const [aiResponse, setAiResponse] = useState<string | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const [showMap, setShowMap] = useState<boolean>(false);
@@ -66,11 +68,16 @@ export default function NewStoryForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     const { date, latitude, longitude } = values;
-    const response = await getHistoricalData(date, latitude, longitude);
+    const response = await getHistoricalData(
+      date,
+      latitude,
+      longitude,
+      i18n.language,
+    );
     if (!response)
       toast({
-        title: "Error",
-        description: "Failed to fetch data.",
+        title: t("newStoryForm.error.title"),
+        description: t("newStoryForm.error.fetchFailed"),
         variant: "destructive",
       });
     else setAiResponse(response.toString());
@@ -84,13 +91,13 @@ export default function NewStoryForm() {
           form.setValue("latitude", position.coords.latitude);
           form.setValue("longitude", position.coords.longitude);
           toast({
-            title: "Location",
-            description: "Successfully fetched your location.",
+            title: t("newStoryForm.locationTitle"),
+            description: t("newStoryForm.locationSuccess"),
           });
         },
         (error) => {
           toast({
-            title: "Location",
+            title: t("newStoryForm.locationTitle"),
             description: error.message,
             variant: "destructive",
           });
@@ -99,12 +106,13 @@ export default function NewStoryForm() {
       );
     else {
       toast({
-        title: "Location",
-        description: "Geolocation is not supported by your browser.",
+        title: t("newStoryForm.locationTitle"),
+        description: t("newStoryForm.locationNotSupported"),
+        variant: "destructive",
       });
       console.error("Geolocation is not supported by your browser.");
     }
-  }, [form, toast]);
+  }, [form, toast, t]);
 
   useEffect(() => {
     getLocation();
@@ -128,12 +136,12 @@ export default function NewStoryForm() {
               name="date"
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-1 text-center">
-                  <FormLabel>Year you want to travel to</FormLabel>
+                  <FormLabel>{t("newStoryForm.yearLabel")}</FormLabel>
                   <FormControl>
                     <YearPickerDropdown onChange={field.onChange} />
                   </FormControl>
                   <FormDescription>
-                    This is the year you are traveling to.
+                    {t("newStoryForm.yearDescription")}
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -153,18 +161,18 @@ export default function NewStoryForm() {
                     <div className="w-full flex flex-col items-center justify-center gap-2">
                       <div className="flex gap-2">
                         <Button onClick={() => setShowMap(false)}>
-                          Select <Compass />
+                          {t("mapPicker.select")} <Compass />
                         </Button>
                         <Button onClick={() => setShowMap(false)}>
-                          Close <X />
+                          {t("mapPicker.close")} <X />
                         </Button>
                       </div>
                       <div className="flex gap-2">
                         <p className="text-xs uppercase italic">
-                          latitude: {latitude} (°N)
+                          {t("mapPicker.latitude")}: {latitude} (°N)
                         </p>
                         <p className="text-xs uppercase italic">
-                          longitude: {longitude} (°E)
+                          {t("mapPicker.longitude")}: {longitude} (°E)
                         </p>
                       </div>
                     </div>
@@ -177,10 +185,10 @@ export default function NewStoryForm() {
                   name="latitude"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Latitude</FormLabel>
+                      <FormLabel>{t("newStoryForm.latitudeLabel")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="40.7128"
+                          placeholder={t("newStoryForm.latitudePlaceholder")}
                           {...field}
                           onChange={(e) =>
                             field.onChange(Number(e.target.value))
@@ -188,7 +196,7 @@ export default function NewStoryForm() {
                         />
                       </FormControl>
                       <FormDescription>
-                        Latitude of the location (°N).
+                        {t("newStoryForm.latitudeDescription")}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -199,10 +207,10 @@ export default function NewStoryForm() {
                   name="longitude"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Longitude</FormLabel>
+                      <FormLabel>{t("newStoryForm.longitudeLabel")}</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="-74.0060"
+                          placeholder={t("newStoryForm.longitudePlaceholder")}
                           {...field}
                           onChange={(e) =>
                             field.onChange(Number(e.target.value))
@@ -210,7 +218,7 @@ export default function NewStoryForm() {
                         />
                       </FormControl>
                       <FormDescription>
-                        Longitude of the location (°E).
+                        {t("newStoryForm.longitudeDescription")}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -219,7 +227,7 @@ export default function NewStoryForm() {
               </div>
               <div className="flex gap-2 items-center w-full">
                 <div className="border-b w-full h-0" />
-                <span className="text-xs">OR</span>
+                <span className="text-xs">{t("newStoryForm.or")}</span>
                 <div className="border-b w-full h-0" />
               </div>
               <div className="flex gap-2">
@@ -229,7 +237,7 @@ export default function NewStoryForm() {
                   onClick={getLocation}
                   className="w-full"
                 >
-                  Get current location <MapPinHouse />
+                  {t("newStoryForm.getCurrentLocation")} <MapPinHouse />
                 </Button>
                 <Button
                   type="button"
@@ -237,7 +245,7 @@ export default function NewStoryForm() {
                   onClick={() => setShowMap((prev) => !prev)}
                   className="w-full"
                 >
-                  Choose on map <Map />
+                  {t("newStoryForm.chooseOnMap")} <Map />
                 </Button>
               </div>
             </div>
@@ -252,7 +260,7 @@ export default function NewStoryForm() {
                 ) : (
                   <div className="flex items-center gap-2">
                     <Luggage />
-                    <span>Start Journey</span>
+                    <span>{t("newStoryForm.startJourney")}</span>
                   </div>
                 )}
               </Button>
@@ -261,16 +269,13 @@ export default function NewStoryForm() {
         </Form>
       )}
       {aiResponse && (
-        <div
-          className="flex flex-col md:px-10 lg:px-20 xl:px-32 2xl:px-64
-         gap-4 py-12"
-        >
+        <div className="flex flex-col md:px-10 lg:px-20 xl:px-32 2xl:px-64 gap-4 py-12">
           <p className="text-lg">
             <span className="text-6xl">{aiResponse?.at(0)?.toUpperCase()}</span>
             <span>{aiResponse.slice(1)}</span>
           </p>
           <Button onClick={() => setAiResponse("")}>
-            New Story <MoveRight />
+            {t("newStoryForm.newStory")} <MoveRight />
           </Button>
         </div>
       )}
