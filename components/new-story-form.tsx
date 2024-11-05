@@ -258,7 +258,7 @@ export default function NewStoryForm() {
          gap-4 py-12"
         >
           <p className="text-lg">
-            <span className="text-6xl">{aiResponse.at(0).toUpperCase()}</span>
+            <span className="text-6xl">{aiResponse?.at(0)?.toUpperCase()}</span>
             <span>{aiResponse.slice(1)}</span>
           </p>
           <Button onClick={() => setAiResponse("")}>
