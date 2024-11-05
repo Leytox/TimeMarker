@@ -26,7 +26,7 @@ import {
 import { YearPickerDropdown } from "./year-picker-dropdown";
 import { useToast } from "@/hooks/use-toast";
 import { getHistoricalData } from "@/server/actions";
-import { MapPicker } from "./map-picker";
+import dynamic from "next/dynamic";
 
 const formSchema = z.object({
   date: z.date(),
@@ -39,6 +39,14 @@ const formSchema = z.object({
     .min(-180, "Longitude must be between -180° and 180°")
     .max(180, "Longitude must be between -180° and 180°"),
 });
+
+const MapPicker = dynamic(
+  () => import("./map-picker").then((mod) => mod.MapPicker),
+  {
+    ssr: false,
+    loading: () => <p>Loading map...</p>,
+  },
+);
 
 export default function NewStoryForm() {
   const [aiResponse, setAiResponse] = useState<string | undefined>();
